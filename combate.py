@@ -1,15 +1,16 @@
 import random,time
 from clases import Personaje,Personaje_principal, Enemigo
 
-name = input("introduce el nombre de tu personaje: ")
-player = Personaje_principal(name, 100, 20, 10)
-atributos = ["fuego", "agua", "planta"]
-enemys = []
-enemy_names = ["goblin","rata","esqueleto"]
+if __name__ == "__main__":
+    name = input("introduce el nombre de tu personaje: ")
+    player = Personaje_principal(name, 100, 20, 10)
+    atributos = ["fuego", "agua", "planta"]
+    enemys = []
+    enemy_names = ["goblin","rata","esqueleto"]
 
 
 
-#Crear una forma en la que presentar a varios eneemigos 
+    #Crear una forma en la que presentar a varios eneemigos 
 def combat():
     global player,enemy,enemys,enemy_names,atributos 
     enemy_number = random.randint(1, 3)
@@ -30,6 +31,7 @@ def combat():
         print(f"{idx+1}. {enemy.nombre} ({enemy.atributo}) - Vida: {enemy.vida}")
 
     while True:
+        
         vivos = [e for e in enemys if e.vida > 0]
         if not vivos:
             print("¡Has derrotado a todos los enemigos!")
@@ -62,7 +64,7 @@ def combat():
             print("Acción no válida.")
             continue
 
-        # Turno de los enemigos vivos
+            # Turno de los enemigos vivos
         print("\nEs el turno de los enemigos\n----------------------")
         time.sleep(1)
         for enemy in vivos:
