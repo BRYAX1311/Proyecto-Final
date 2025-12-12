@@ -1,5 +1,4 @@
 import time
-import speech_recognition as speech_recog
 
 class Personaje:
     def __init__(self,nombre,vida,ataque,defensa,):
