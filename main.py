@@ -79,13 +79,13 @@ class Personaje_principal(Personaje):
                     objetivo.vida -= firesword.dmg_system()
                     print("el objetivo ha recibido", firesword.dmg_system(), "puntos de daño y ahora su vida es", objetivo.vida, "\n"
                           "-----------------------")
-                    enemy_hurt = True
+                    
                     time.sleep(1)
                 elif not firesword.ventaja:
                     objetivo.vida -= firesword.dmg_system()
                 print("el objetivo ha recibido", firesword.dmg_system(), "puntos de daño y ahora su vida es", objetivo.vida, "\n"
                           "-----------------------")
-                enemy_hurt = True
+                
                 time.sleep(1)
                 
             elif skill == 2:
@@ -102,13 +102,13 @@ class Personaje_principal(Personaje):
                     objetivo.vida -= watersword.dmg_system()
                     print("el objetivo ha recibido", watersword.dmg_system(), "puntos de daño y ahora su vida es", objetivo.vida, "\n"
                           "-----------------------")
-                    enemy_hurt = True
+                    
                     time.sleep(1)
                 elif not watersword.ventaja:
                     objetivo.vida -= watersword.dmg_system()
                     print("el objetivo ha recibido", watersword.dmg_system(), "puntos de daño y ahora su vida es", objetivo.vida, "\n"
                             "-----------------------")
-                    enemy_hurt = True
+                    
                 time.sleep(1)
             elif skill == 3:
                 skill = earthsword
@@ -124,13 +124,13 @@ class Personaje_principal(Personaje):
                     objetivo.vida -= earthsword.dmg_system()
                     print("el objetivo ha recibido", earthsword.dmg_system(), "puntos de daño y ahora su vida es", objetivo.vida, "\n"
                             "-----------------------")
-                    enemy_hurt = True
+                   
                     time.sleep(1)
                 elif not earthsword.ventaja:
                     objetivo.vida -= earthsword.dmg_system()
                     print("el objetivo ha recibido", earthsword.dmg_system(), "puntos de daño y ahora su vida es", objetivo.vida, "\n"
                             "-----------------------")
-                    enemy_hurt = True
+                   
                 time.sleep(1)
         
             else:
@@ -160,7 +160,7 @@ class Enemigo(Personaje):
                 time.sleep(1)
                 print( objetivo.nombre, "ha recibido",dmg, "puntos de daño. Su vida actual es", objetivo.vida, "\n"
                       "-----------------------")
-                player_hurt = True
+                
                 time.sleep(1)
         elif objetivo.vida <= 0:
             print("Haz perdido el combate")
@@ -187,6 +187,7 @@ player_idle = True
 enemy_idle = True
 player_hurt = False
 enemy_hurt = False
+
 class ConsoleRedirector(object):
     """Redirige la salida de print() al widget de texto."""
     def __init__(self, text_widget):
@@ -220,7 +221,7 @@ class ConsoleRedirector(object):
 
     #Crear una forma en la que presentar a varios eneemigos 
 def combat():
-    global player,enemy,enemy,atributos,player_move,player_idle,enemy_idle,enemy_move,t
+    global player,enemy,enemy,atributos,player_move,player_idle,enemy_idle,enemy_move,player_hurt,enemy_hurt
     player.nombre = get_input("Escribe el nombre de tu personaje: ")
     nombre_enemigo = "Orc"
     enemy = Enemigo(
@@ -250,6 +251,7 @@ def combat():
             print(f"Atacas a {enemy.nombre}\n----------------------")
             player.atacar(enemy)
             player_move = True
+            enemy_hurt = True
             time.sleep(1)
 
         elif accion == "curar":
@@ -265,6 +267,7 @@ def combat():
         if enemy.vida > 0:
             enemy.atacar(player)
             enemy_move = True
+            player_hurt = True
             if player.vida <= 0:
                 print("Has perdido el combate")
                 return
@@ -364,14 +367,7 @@ def create_menu(parent):
         ancho_pantalla//2, 800,
         window=start_button
     )
-    test = tk.Button(
-        menu,
-        text="mmg",
-        command = lambda :show_frame("End"))
-    test.config(width=10, height=1, bg="blue", fg="white", font=("Arial", 12, "bold"))
-    canvas.create_window(
-    ancho_pantalla//2, 900,window = test
-    )
+    
     return menu
 
 def create_combat(parent):
@@ -440,7 +436,7 @@ def create_combat(parent):
     def animate():
         animate_combatants()
         canvas.after(500, animate)
-        canvas.after(700, animate_hurt)
+        canvas.after(800, animate_hurt)
         canvas.after(1500, return_to_idle)
 
     #Player imgs
